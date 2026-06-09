@@ -2,7 +2,7 @@
 
 #include "file.h"
 #include "modInverse.h"
-#include "binPowMod.h"
+#include "binModPow.h"
 
 #include <iostream>
 #include <fstream>
@@ -28,19 +28,19 @@ void encrypt(const string& inputFile, const string& outputFile, int64_t n, int64
 
     cout << "\nШаг 1" << endl;
 
-    int64_t k = binPowMod(g, x, n);
+    int64_t k = binModPow(g, x, n);
 
     cout << "k = g^x mod n = " << k << endl;
 
     cout << "\nШаг 2" << endl;
 
-    int64_t Y = binPowMod(g, y, n);
+    int64_t Y = binModPow(g, y, n);
 
     cout << "Y = g^y mod n = " << Y << endl;
 
     cout << "\nШаг 3" << endl;
 
-    int64_t X = binPowMod(Y, x, n);
+    int64_t X = binModPow(Y, x, n);
 
     cout << "X = Y^x mod n = " << X << endl;
 
@@ -53,7 +53,7 @@ void encrypt(const string& inputFile, const string& outputFile, int64_t n, int64
         return;
     }
 
-    int64_t k2 = binPowMod(X, z, n);
+    int64_t k2 = binModPow(X, z, n);
 
     cout << "k' = X^z mod n = " << k2 << endl;
 
@@ -84,7 +84,7 @@ void encrypt(const string& inputFile, const string& outputFile, int64_t n, int64
 
     for (uint8_t byte : data) {
 
-        uint64_t enc = binPowMod(byte, k, n);
+        uint64_t enc = binModPow(byte, k, n);
 
         out << enc << " ";
     }
@@ -120,7 +120,7 @@ void decrypt(const string& inputFile, const string& outputFile) {
 
     while (in >> enc) {
 
-        uint64_t dec = binPowMod(enc, d, n);
+        uint64_t dec = binModPow(enc, d, n);
 
         decrypted.push_back(static_cast<uint8_t>(dec));
     }

@@ -1,9 +1,9 @@
-#include "binPowMod.h"
+#include "binModPow.h"
 
 using namespace std;
 
 
-uint64_t binPowMod(uint64_t base, uint64_t power, uint64_t modul) {
+uint64_t binModPow(uint64_t base, uint64_t power, uint64_t modul) {
 
     base %= modul;
     uint64_t result = 1;
