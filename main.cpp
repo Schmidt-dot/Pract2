@@ -22,7 +22,7 @@ int main() {
     int choice;
 
     do {
-
+        cout << endl;
         cout << "1 - Теорема Ферма\n";
         cout << "2 - асширенный алгоритм Евклида)\n";
         cout << "3 - Вычисление c^(-1) mod m\n";
