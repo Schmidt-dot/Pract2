@@ -1,7 +1,7 @@
 #include "task4.h"
 
 #include "hughes.h"
-#include "binPowMod.h"
+#include "binModPow.h"
 #include "modInverse.h"
 #include "tFerma.h"
 
@@ -66,9 +66,9 @@ void task4() {
 
         vector<uint8_t> data(text.begin(), text.end());
 
-        int64_t k = binPowMod(g, x, n);
+        int64_t k = binModPow(g, x, n);
 
-        int64_t Y = binPowMod(g, y, n);
+        int64_t Y = binModPow(g, y, n);
 
         int64_t z = modInverse(y, n - 1);
 
@@ -77,9 +77,9 @@ void task4() {
             return;
         }
 
-        int64_t X = binPowMod(Y, x, n);
+        int64_t X = binModPow(Y, x, n);
 
-        int64_t k2 = binPowMod(X, z, n);
+        int64_t k2 = binModPow(X, z, n);
 
         if (k != k2) {
             cout << "Ошибка: k != k'." << endl;
@@ -99,7 +99,7 @@ void task4() {
 
         for (uint8_t byte : data) {
 
-            uint64_t enc = binPowMod(byte, k, n);
+            uint64_t enc = binModPow(byte, k, n);
 
             encrypted.push_back(enc);
 
@@ -110,7 +110,7 @@ void task4() {
 
         for (uint64_t enc : encrypted) {
 
-            uint64_t dec = binPowMod(enc, d, n);
+            uint64_t dec = binModPow(enc, d, n);
 
             cout << static_cast<char>(dec);
         }
