@@ -11,13 +11,13 @@ using namespace std;
 int main() {
 
     //Общие параметры
-    uint64_t n = 269;
-    uint64_t g = 11;
+    uint64_t n = 257;
+    uint64_t g = 3;
 
     //Секреты участников
-    uint64_t xA = 7; //Алиса
-    uint64_t yB = 19; //Боб
-    uint64_t yE = 13; //Ева
+    uint64_t xA = 5; //Алиса
+    uint64_t yB = 3; //Боб
+    uint64_t yE = 11; //Ева
 
     cout << "\nАТАКА ПОСРЕДИНЕ НА ПРИМЕРЕ АЛГОРИТМА ХЬЮЗА\n";
 
