@@ -1,8 +1,7 @@
 #include "task4.h"
 
 #include "hughes.h"
-#include "binModPow.h"
-#include "modInverse.h"
+#include "file.h"
 #include "tFerma.h"
 
 #include <iostream>
@@ -16,7 +15,7 @@ void task4() {
     uint64_t n, g, x, y;
     uint64_t mode;
 
-    cout << "\nАЛГОРИТМ ХЬЮЗА " << endl;
+    cout << "\nАЛГОРИТМ ХЬЮЗА\n";
 
     cout << "1 - Работа с текстом" << endl;
     cout << "2 - Работа с файлом" << endl;
@@ -55,6 +54,7 @@ void task4() {
         return;
     }
 
+    //ТЕКСТ 
     if (mode == 1) {
 
         cin.ignore();
@@ -66,58 +66,32 @@ void task4() {
 
         vector<uint8_t> data(text.begin(), text.end());
 
-        int64_t k = binModPow(g, x, n);
+        uint64_t d;
 
-        int64_t Y = binModPow(g, y, n);
+        vector<uint64_t> encrypted = encrypt(data, n, g, x, y, d);
 
-        int64_t z = modInverse(y, n - 1);
-
-        if (z == -1) {
-            cout << "Ошибка: невозможно вычислить z" << endl;
+        if (encrypted.empty()) {
             return;
         }
-
-        int64_t X = binModPow(Y, x, n);
-
-        int64_t k2 = binModPow(X, z, n);
-
-        if (k != k2) {
-            cout << "Ошибка: k != k'." << endl;
-            return;
-        }
-
-        int64_t d = modInverse(k, n - 1);
-
-        if (d == -1) {
-            cout << "Ошибка: невозможно вычислить d" << endl;
-            return;
-        }
-
-        vector<uint64_t> encrypted;
 
         cout << "\nЗашифрованный текст:" << endl;
 
-        for (uint8_t byte : data) {
-
-            uint64_t enc = binModPow(byte, k, n);
-
-            encrypted.push_back(enc);
-
-            cout << enc << " ";
+        for (uint64_t value : encrypted) {
+            cout << value << " ";
         }
 
         cout << "\n\nРасшифрованный текст:" << endl;
 
-        for (uint64_t enc : encrypted) {
+        vector<uint8_t> decrypted = decrypt(encrypted, n, d);
 
-            uint64_t dec = binModPow(enc, d, n);
-
-            cout << static_cast<char>(dec);
+        for (uint8_t byte : decrypted) {
+            cout << static_cast<char>(byte);
         }
 
         cout << endl;
     }
 
+    //ФАЙЛ
     else if (mode == 2) {
 
         string inputFile;
@@ -133,13 +107,36 @@ void task4() {
         cout << "Введите имя расшифрованного файла: ";
         cin >> decryptedFile;
 
-        encrypt(inputFile, encryptedFile, n, g, x, y);
+        vector<uint8_t> data = readFile(inputFile);
 
-        decrypt(encryptedFile, decryptedFile);
+        if (data.empty()) {
+            return;
+        }
+
+        uint64_t d;
+
+        vector<uint64_t> encrypted = encrypt(data, n, g, x, y, d);
+
+        if (encrypted.empty()) {
+            return;
+        }
+
+        writeEncryptedFile(encryptedFile, encrypted, n, d);
+
+        uint64_t n2, d2;
+
+        vector<uint64_t> encryptedFromFile = readEncryptedFile(encryptedFile, n2, d2);
+
+        vector<uint8_t> decrypted = decrypt(encryptedFromFile, n2, d2);
+
+        writeFile(decryptedFile, decrypted);
+
+        cout << "\nФайл зашифрован: " << encryptedFile << endl;
+
+        cout << "Файл расшифрован: " << decryptedFile << endl;
     }
 
     else {
-
         cout << "Ошибка: неверный режим" << endl;
     }
 }

@@ -1,8 +1,10 @@
 #pragma once
 
-#include <string>
-#include <cstdint>
+#include<vector>
+#include<cstdint>
 
-void encrypt(const std::string& inputFile, const std::string& outputFile, int64_t n, int64_t g, int64_t x, int64_t y);
-void decrypt(const std::string& inputFile, const std::string& outputFile);
+using namespace std;
 
+
+vector<uint64_t> encrypt(const vector<uint8_t>& data, uint64_t n, uint64_t g, uint64_t x, uint64_t y, uint64_t& d);
+vector<uint8_t> decrypt(const vector<uint64_t>& encrypted, uint64_t n, uint64_t d);
