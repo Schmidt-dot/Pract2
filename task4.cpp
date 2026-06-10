@@ -4,9 +4,10 @@
 #include "file.h"
 #include "tFerma.h"
 
-#include <iostream>
-#include <string>
-#include <vector>
+#include<iostream>
+#include<fstream>
+#include<string>
+#include<vector>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ void task4() {
     uint64_t n, g, x, y;
     uint64_t mode;
 
-    cout << "\nАЛГОРИТМ ХЬЮЗА\n";
+    cout << "\nАЛГОРИТМ ХЬЮЗА" << endl;
 
     cout << "1 - Работа с текстом" << endl;
     cout << "2 - Работа с файлом" << endl;
@@ -54,7 +55,6 @@ void task4() {
         return;
     }
 
-    //ТЕКСТ 
     if (mode == 1) {
 
         cin.ignore();
@@ -82,30 +82,21 @@ void task4() {
 
         cout << "\n\nРасшифрованный текст:" << endl;
 
-        vector<uint8_t> decrypted = decrypt(encrypted, n, d);
+        vector<uint8_t> decrypted =
+            decrypt(encrypted, n, d);
 
         for (uint8_t byte : decrypted) {
             cout << static_cast<char>(byte);
         }
-
         cout << endl;
     }
 
-    //ФАЙЛ
     else if (mode == 2) {
 
         string inputFile;
-        string encryptedFile;
-        string decryptedFile;
 
         cout << "Введите имя исходного файла: ";
         cin >> inputFile;
-
-        cout << "Введите имя зашифрованного файла: ";
-        cin >> encryptedFile;
-
-        cout << "Введите имя расшифрованного файла: ";
-        cin >> decryptedFile;
 
         vector<uint8_t> data = readFile(inputFile);
 
@@ -121,21 +112,49 @@ void task4() {
             return;
         }
 
-        writeEncryptedFile(encryptedFile, encrypted, n, d);
+        ofstream encryptedFile("encrypted.txt");
+
+        if (!encryptedFile.is_open()) {
+            cout << "Ошибка создания encrypted.txt" << endl;
+            return;
+        }
+
+        encryptedFile << n << " " << d << endl;
+
+        for (uint64_t value : encrypted) {
+            encryptedFile << value << " ";
+        }
+
+        encryptedFile.close();
+
+        ifstream encryptedInput("encrypted.txt");
+
+        if (!encryptedInput.is_open()) {
+            cout << "Ошибка открытия encrypted.txt" << endl;
+            return;
+        }
 
         uint64_t n2, d2;
 
-        vector<uint64_t> encryptedFromFile = readEncryptedFile(encryptedFile, n2, d2);
+        encryptedInput >> n2 >> d2;
 
-        vector<uint8_t> decrypted = decrypt(encryptedFromFile, n2, d2);
+        vector<uint64_t> encryptedData;
 
-        writeFile(decryptedFile, decrypted);
+        uint64_t value;
 
-        cout << "\nФайл зашифрован: " << encryptedFile << endl;
+        while (encryptedInput >> value) {
+            encryptedData.push_back(value);
+        }
 
-        cout << "Файл расшифрован: " << decryptedFile << endl;
+        encryptedInput.close();
+
+        vector<uint8_t> decrypted = decrypt(encryptedData, n2, d2);
+
+        writeFile("decrypted.txt", decrypted);
+
+        cout << "\nСоздан файл encrypted.txt" << endl;
+        cout << "Создан файл decrypted.txt" << endl;
     }
-
     else {
         cout << "Ошибка: неверный режим" << endl;
     }
