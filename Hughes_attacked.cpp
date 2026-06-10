@@ -1,6 +1,7 @@
 #include<iostream>
 #include<cstdint>
 #include<string>
+#include<vector>
 
 #include "binModPow.h"
 #include "silentModInverse.h"
@@ -65,22 +66,29 @@ int main() {
     }
     cout << interceptedMessage << endl;
 
-    //Ева изменяет 
+   //Ева изменяет 
     string modifiedMessage = "HI!";
     cout << "\nE изменяет сообщение на: " << modifiedMessage << endl;
 
-    //Боб получает
-    uint64_t dB = modInverse(kBE, n - 1);
-    string receivedMessage;
+    vector<uint64_t> encryptedForBob;
+
+    //Ева шифрует сообщение для Боба
     for (char ch : modifiedMessage) {
         uint64_t cipher = binModPow(static_cast<uint8_t>(ch), kBE, n);
 
+        encryptedForBob.push_back(cipher);
+    }
+
+    //Боб получает
+    cout << "\nB получает зашифрованное сообщение." << endl;
+
+    uint64_t dB = modInverse(kBE, n - 1);
+    string receivedMessage;
+
+    for (uint64_t cipher : encryptedForBob) {
         uint64_t decrypted = binModPow(cipher, dB, n);
 
         receivedMessage += static_cast<char>(decrypted);
     }
-
-    cout << "\nB получает сообщение: " << receivedMessage << endl;
-
-    
+    cout << "B расшифровывает сообщение: " << receivedMessage << endl;
 }
