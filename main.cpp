@@ -14,7 +14,7 @@ enum class Menu {
     EX_EVCLID = 2,
     MOD_INVERSE = 3,
     HUGHES = 4,
-    DIOPHANTINE = 6
+    FRACTION = 6
 };
 
 int main() {
@@ -51,7 +51,7 @@ int main() {
             task4();
             break;
 
-        case Menu::DIOPHANTINE:
+        case Menu::FRACTION:
             task6();
             break;
 
