@@ -14,7 +14,7 @@ enum class Menu {
     EX_EVCLID = 2,
     MOD_INVERSE = 3,
     HUGHES = 4,
-    DIOPHANTINE = 6
+    FRACTION = 6
 };
 
 int main() {
@@ -24,10 +24,10 @@ int main() {
     do {
         cout << endl;
         cout << "1 - Теорема Ферма\n";
-        cout << "2 - асширенный алгоритм Евклида)\n";
+        cout << "2 - Расширенный алгоритм Евклида\n";
         cout << "3 - Вычисление c^(-1) mod m\n";
         cout << "4 - Алгоритм Хьюза\n";
-        cout << "6 - Диофантово уравнение\n";
+        cout << "6 - Цепная дробь\n";
         cout << "0 - Выход\n";
 
         cout << "\nВыберите пункт: ";
@@ -51,7 +51,7 @@ int main() {
             task4();
             break;
 
-        case Menu::DIOPHANTINE:
+        case Menu::FRACTION:
             task6();
             break;
 
