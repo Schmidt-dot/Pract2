@@ -69,7 +69,7 @@ void inputFraction() {
         q1 = q;
     }
 
-    // Предпоследняя подходящая дробь
+    //Предпоследняя подходящая дробь
     int64_t P = p2;
     int64_t Q = q2;
 
@@ -94,6 +94,6 @@ void inputFraction() {
 
     cout << "Общее решение:" << endl;
     cout << "a = " << x << " + " << B / gcd << "t" << endl;
-    cout << "b = " << y << " - " << A / gcd << "t" << endl;
+    cout << "b = " << y << " + " << A / gcd << "t" << endl;
     cout << "t принадлежит Z" << endl;
 }
