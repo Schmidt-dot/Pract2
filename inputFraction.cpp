@@ -1,4 +1,4 @@
-#include "task6.h"
+#include "inputFraction.h"
 #include "exEvclid.h"
 
 #include <iostream>
@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void task6() {
+void inputFraction() {
 
     int64_t A = 439;
     int64_t B = 118;

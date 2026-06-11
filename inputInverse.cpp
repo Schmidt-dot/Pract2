@@ -1,4 +1,4 @@
-#include "task3.h"
+#include "inputInverse.h"
 #include "modInverse.h"
 
 #include <iostream>
@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void task3() {
+void inputInverse() {
 
     int64_t c, m;
 

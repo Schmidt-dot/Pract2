@@ -1,4 +1,4 @@
-#include "task4.h"
+#include "inputEncryption.h"
 
 #include "hughes.h"
 #include "file.h"
@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void task4() {
+void inputEncryption() {
 
     uint64_t n, g, x, y;
     uint64_t mode;

@@ -1,10 +1,10 @@
 #include <iostream>
 
-#include "task1.h"
-#include "task2.h"
-#include "task3.h"
-#include "task4.h"
-#include "task6.h"
+#include "inputTFerma.h"
+#include "inputExEvclid.h"
+#include "inputInverse.h"
+#include "inputEncryption.h"
+#include "inputFraction.h"
 
 using namespace std;
 
@@ -36,23 +36,23 @@ int main() {
         switch (static_cast<Menu>(choice)) {
 
         case Menu::FERMAT:
-            task1();
+            inputTFerma();
             break;
 
         case Menu::EX_EVCLID:
-            task2();
+            inputExEvclid();
             break;
 
         case Menu::MOD_INVERSE:
-            task3();
+            inputInverse();
             break;
 
         case Menu::HUGHES:
-            task4();
+            inputEncryption();
             break;
 
         case Menu::FRACTION:
-            task6();
+            inputFraction();
             break;
 
         case Menu::EXIT:

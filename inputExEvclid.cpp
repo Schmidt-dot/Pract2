@@ -1,4 +1,4 @@
-#include "task2.h"
+#include "inputExEvclid.h"
 #include "exEvclid.h"
 
 #include <iostream>
@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void task2() {
+void inputExEvclid() {
 
     int64_t a, b;
 
