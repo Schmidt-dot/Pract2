@@ -40,7 +40,7 @@ void inputFraction() {
     cout << "]" << endl << endl;
 
     int64_t x, y;
-    int64_t gcd = exEvclid(A, B, x, y);
+    int64_t gcd = exEvclid(A, B, x, y, true);
 
     cout << "НОД = " << gcd << endl;
 

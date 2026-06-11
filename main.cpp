@@ -51,7 +51,7 @@ int main() {
 
             cout << endl;
 
-            uint64_t result = tFerma(a, x, p);
+            uint64_t result = tFerma(a, x, p, true);
 
             cout << "Ответ: " << result << endl;
 
@@ -71,7 +71,7 @@ int main() {
             cout << "Введите b: ";
             cin >> b;
 
-            exEvclid(a, b, u, v);
+            exEvclid(a, b, u, v, true);
 
             break;
         }
@@ -95,7 +95,7 @@ int main() {
 
             cout << endl;
 
-            int64_t d = modInverse(c, m);
+            int64_t d = modInverse(c, m, true);
 
             if (d == -1) {
                 break;
