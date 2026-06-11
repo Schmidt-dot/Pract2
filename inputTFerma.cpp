@@ -1,4 +1,4 @@
-#include "task1.h"
+#include "inputTFerma.h"
 #include "tFerma.h"
 
 #include <iostream>
@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void task1() {
+void inputTFerma() {
 
     uint64_t a, x, p;
 

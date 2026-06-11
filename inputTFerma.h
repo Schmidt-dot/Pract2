@@ -1,3 +1,3 @@
 #pragma once
 
-void task1();
+void inputTFerma();
