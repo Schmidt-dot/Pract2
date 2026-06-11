@@ -4,10 +4,10 @@
 #include "file.h"
 #include "tFerma.h"
 
-#include<iostream>
-#include<fstream>
-#include<string>
-#include<vector>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -18,41 +18,59 @@ void inputEncryption() {
 
     cout << "\nАЛГОРИТМ ХЬЮЗА" << endl;
 
-    cout << "1 - Работа с текстом" << endl;
-    cout << "2 - Работа с файлом" << endl;
-    cout << "Выберите режим: ";
-    cin >> mode;
+    while (true) {
+        cout << "1 - Работа с текстом" << endl;
+        cout << "2 - Работа с файлом" << endl;
+        cout << "Выберите режим: ";
+        cin >> mode;
 
-    cout << "\nВведите простое число n (>255): ";
-    cin >> n;
+        if (mode == 1 || mode == 2) {
+            break;
+        }
 
-    if (!isPrime(n)) {
-        cout << "Ошибка: n не является простым" << endl;
-        return;
+        cout << "Ошибка: неверный режим. Попробуйте ещё раз.\n";
     }
 
-    if (n <= 255) {
-        cout << "Ошибка: n должно быть больше 255" << endl;
-        return;
+    while (true) {
+        cout << "\nВведите простое число n (>255): ";
+        cin >> n;
+
+        if (!isPrime(n)) {
+            cout << "Ошибка: n не является простым. Попробуйте ещё раз.\n";
+            continue;
+        }
+
+        if (n <= 255) {
+            cout << "Ошибка: n должно быть больше 255. Попробуйте ещё раз.\n";
+            continue;
+        }
+
+        break;
     }
 
-    cout << "Введите примитивный элемент g: ";
-    cin >> g;
+    while (true) {
+        cout << "Введите элемент g < n: ";
+        cin >> g;
 
-    if (g >= n) {
-        cout << "Ошибка: g должно быть меньше n" << endl;
-        return;
+        if (g < n) {
+            break;
+        }
+
+        cout << "Ошибка: g должно быть меньше n. Попробуйте ещё раз.\n";
     }
 
     cout << "Введите секретный ключ Алисы x: ";
     cin >> x;
 
-    cout << "Введите секретный ключ Боба y: ";
-    cin >> y;
+    while (true) {
+        cout << "Введите секретный ключ Боба y: ";
+        cin >> y;
 
-    if (gcd(y, n - 1) != 1) {
-        cout << "Ошибка: gcd(y, n - 1) != 1" << endl;
-        return;
+        if (gcd(y, n - 1) == 1) {
+            break;
+        }
+
+        cout << "Ошибка: gcd(y, n - 1) должно быть равно 1. Попробуйте ещё раз.\n";
     }
 
     if (mode == 1) {
@@ -82,16 +100,15 @@ void inputEncryption() {
 
         cout << "\n\nРасшифрованный текст:" << endl;
 
-        vector<uint8_t> decrypted =
-            decrypt(encrypted, n, d);
+        vector<uint8_t> decrypted = decrypt(encrypted, n, d);
 
         for (uint8_t byte : decrypted) {
             cout << static_cast<char>(byte);
         }
+
         cout << endl;
     }
-
-    else if (mode == 2) {
+    else {
 
         string inputFile;
 
@@ -154,8 +171,5 @@ void inputEncryption() {
 
         cout << "\nСоздан файл encrypted.txt" << endl;
         cout << "Создан файл decrypted.txt" << endl;
-    }
-    else {
-        cout << "Ошибка: неверный режим" << endl;
     }
 }
