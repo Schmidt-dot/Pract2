@@ -1,8 +1,9 @@
-#include <iostream>
+#include<iostream>
+#include<cstdint>
 
-#include "inputTFerma.h"
-#include "inputExEvclid.h"
-#include "inputInverse.h"
+#include "tFerma.h"
+#include "exEvclid.h"
+#include "modInverse.h"
 #include "inputEncryption.h"
 #include "inputFraction.h"
 
@@ -35,31 +36,96 @@ int main() {
 
         switch (static_cast<Menu>(choice)) {
 
-        case Menu::FERMAT:
-            inputTFerma();
-            break;
+        case Menu::FERMAT: {
 
-        case Menu::EX_EVCLID:
-            inputExEvclid();
-            break;
+            int64_t a, x, p;
 
-        case Menu::MOD_INVERSE:
-            inputInverse();
+            cout << "Введите a: ";
+            cin >> a;
+
+            cout << "Введите x: ";
+            cin >> x;
+
+            cout << "Введите p: ";
+            cin >> p;
+
+            cout << endl;
+
+            uint64_t result = tFerma(a, x, p);
+
+            cout << "Ответ: " << result << endl;
+
             break;
+        }
+
+        case Menu::EX_EVCLID: {
+
+            int64_t a, b;
+            int64_t u, v;
+
+            cout << "Расширенный алгоритм Евклида" << endl;
+
+            cout << "Введите a: ";
+            cin >> a;
+
+            cout << "Введите b: ";
+            cin >> b;
+
+            exEvclid(a, b, u, v);
+
+            break;
+        }
+
+        case Menu::MOD_INVERSE: {
+
+            int64_t c, m;
+
+            cout << "Вычисление c^(-1) mod m" << endl;
+
+            cout << "Введите c: ";
+            cin >> c;
+
+            cout << "Введите m: ";
+            cin >> m;
+
+            if (m == 0) {
+                cout << "Ошибка: m не может быть равно 0." << endl;
+                break;
+            }
+
+            cout << endl;
+
+            int64_t d = modInverse(c, m);
+
+            if (d == -1) {
+                break;
+            }
+
+            cout << "\nПроверка:" << endl;
+            cout << c << " * " << d
+                 << " mod " << m
+                 << " = " << (c * d) % m << endl;
+
+            break;
+        }
 
         case Menu::HUGHES:
+
             inputEncryption();
             break;
 
         case Menu::FRACTION:
+
             inputFraction();
             break;
 
         case Menu::EXIT:
+
             break;
 
         default:
-            cout << "\nОшибка: неверный пункт меню.\n";
+
+            cout << "\nОшибка: неверный пункт меню." << endl;
             break;
         }
 
