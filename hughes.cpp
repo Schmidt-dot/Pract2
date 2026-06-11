@@ -11,27 +11,27 @@ vector<uint64_t> encrypt(const vector<uint8_t>& data, uint64_t n, uint64_t g, ui
 
     vector<uint64_t> encrypted;
 
-    uint64_t k = binModPow(g, x, n);
+    uint64_t k = binModPow(g, x, n); //ключ шифрования сообщения
 
-    uint64_t Y = binModPow(g, y, n);
+    uint64_t Y = binModPow(g, y, n); //открытый ключ B-A
 
-    int64_t z = modInverse(y, n - 1);
+    int64_t z = modInverse(y, n - 1); //обрытный ключ B
 
     if (z == -1) {
         cout << "Ошибка: невозможно вычислить z" << endl;
         return {};
     }
 
-    uint64_t X = binModPow(Y, x, n);
+    uint64_t X = binModPow(Y, x, n); //открытый ключ A-B
 
-    uint64_t k2 = binModPow(X, static_cast<uint64_t>(z), n);
+    uint64_t k2 = binModPow(X, static_cast<uint64_t>(z), n); //восстановленный ключ шифрования
 
     if (k != k2) {
         cout << "Ошибка: k != k'" << endl;
         return {};
     }
 
-    int64_t dTemp = modInverse(k, n - 1);
+    int64_t dTemp = modInverse(k, n - 1); //ключ дешифрования
 
     if (dTemp == -1) {
         cout << "Ошибка: невозможно вычислить d" << endl;
